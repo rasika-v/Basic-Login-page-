@@ -1,0 +1,64 @@
+
+<?php
+	include("connect.php");
+
+if (isset($_POST['uname']) and isset($_POST['pwd'])){
+	
+// Assigning POST values to variables.
+$username = $_POST['uname'];
+$password = $_POST['pwd'];
+
+// CHECK FOR THE RECORD FROM TABLE
+$query = "SELECT * FROM `login` WHERE username='$username' and Password='$password'";
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+$count = mysqli_num_rows($result);
+
+if ($count == 1){
+
+header("Location:welcome.html");
+}
+else{
+header("Location:wrongpass.html");
+
+}
+}
+?>
+
+<html>
+	<head><title>Pothole detection </title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+		#login{
+				width: 200px;
+				margin: 5em auto;
+				padding: 2em;
+				background-color: #8AB4F7;;
+				border-radius: 0.5em;
+				box-shadow: 2px 3px 7px 2px rgba(0,0,0,0.02);
+				text-align: center;
+		}
+		</style>
+		</head>
+	<body style="background-color:#D4E6F1;">
+		<br>
+		<h1><center> Login to continue </center></h1>
+		<form method="post" action="">
+			<div id="login">
+				<img src = "wizard-login.jpg" width = 45% height = 20%><br> <br>
+				<label for="username">Username:</label><br>
+				<input type="text" id="uname" name="uname" placeholder="Enter Username">
+				
+				<label for="Password">Password:</label>
+				<input type="password" id="pwd" name="pwd" placeholder="Enter Password">
+				<br>
+				<br>
+				
+				<button type="submit">Login</button> <br><br>
+				<input type="checkbox" checked="checked"> Remember me 
+			</div>
+		</form>
+	</body>
+</html>
